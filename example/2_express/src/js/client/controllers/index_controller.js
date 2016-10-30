@@ -12,7 +12,7 @@ module.exports = ($scope, $http) => {
         }).then(({template, data}) => {
 
             //FileSaver#saveAs()
-            saveAs(merge(template, data), 'example.xlsx');
+            saveAs(merge(template.data, data.data), 'example.xlsx');
         }).catch((err) => {
             console.log(err);
         });
@@ -28,7 +28,7 @@ module.exports = ($scope, $http) => {
                 return {name: `file${(index+1)}.xlsx`, data: e};
             });
             //FileSaver#saveAs()
-            saveAs(bulkMergeToFiles(template, data), 'example.zip');
+            saveAs(bulkMergeToFiles(template.data, data.data), 'example.zip');
         }).catch((err) => {
             console.log(err);
         });
@@ -45,7 +45,7 @@ module.exports = ($scope, $http) => {
             });
 
             //bulkMergeToSheets() is called asyc by returning Promise(bluebird) instance.
-            return bulkMergeToSheets(template, data);
+            return bulkMergeToSheets(template.data, data.data);
         }).then((excel) => {
 
             saveAs(excel,'example.xlsx');
